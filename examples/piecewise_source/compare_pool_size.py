@@ -9,7 +9,7 @@ for key in ('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','VECLIB_MAXIMUM_THREADS','M
 import argparse,csv,hashlib,json,platform
 from pathlib import Path
 import numpy as np
-from equal_time_pool import train
+from training import train
 from run import model
 
 ROOT=Path(__file__).resolve().parents[2]

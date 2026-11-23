@@ -15,16 +15,15 @@ python run.py source --m 2 4 --output runs/source_new
 The numerical core uses GD with `T=80`, `alpha=0.6`, and pools of
 256, 4096 and 10000 points. The writeup compares maximum energy errors on
 4096 interior points and 4096 vertices shared by all methods; four seeds.
-The exploratory test union in `run.py` is larger. `slides_summary.py`
-contains the fixed-test evaluation used in the writeup.
+The exploratory test union in `run.py` is larger. The fixed-test evaluation
+and presentation exports are kept locally in `local_archive/slides_tools/`.
 
 Retained studies:
 
 - `dimension_study.py`, `square_dimension_study.py`: stored trajectories across dimensions.
-- `slides_summary.py`: common test sets, error tables and source histories.
-- `benchmark_slides.py`, `compare_pool_size.py`: training time and pool size.
-- `rerun_slides.py`, `full_rank_decay.py`: step-budget reruns and curves through `N=d-1`.
-- `fixed_space_enrichment.py`: enrichment at a fixed reduced space.
+- `training.py`: GD, fixed-pool and mesh training.
+- `equal_time_pool.py`, `compare_pool_size.py`: training time and pool size.
+- `full_rank_decay.py`: errors through `N=d-1`.
 - `boundary_updates.py`: clipping, active face and adaptive normal updates.
 
 These follow-up scripts use the recorded files in
@@ -55,5 +54,5 @@ settings, including dimensions through 128. It writes under
 `runs/energy_residual_20261120/` and resumes existing results. A fresh clone
 rebuilds the HF models; historical test samples are reused when available.
 `common/benchmark_cached_pool.py` measures training separately from testing
-and diagnostics. `common/plot_writeup_figures.py` exports figures from saved
-results and requires a local LaTeX installation.
+and diagnostics. Presentation and writeup exports are local-only tools.
+The example code does not import those tools.

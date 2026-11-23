@@ -12,6 +12,6 @@ updates. Search and evaluation use the same energy norm.
 python run.py source --m 2 4 --output runs/source_new
 ```
 
-See [the experiment notes](../../docs/EXPERIMENTS.md) for the scripts used
-for the writeup figures and tables. Historical result-directory names are
+See [the experiment notes](../../docs/EXPERIMENTS.md) for the experiment commands.
+Presentation scripts are kept locally in `local_archive/slides_tools/`. Historical result-directory names are
 unchanged. Several follow-up scripts require those local results.

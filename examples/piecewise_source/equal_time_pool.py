@@ -13,7 +13,7 @@ import csv
 import json
 import platform
 from pathlib import Path
-from time import perf_counter,process_time
+from training import train
 import numpy as np
 from run import model,ascend,append,residual_gram,extrema
 
@@ -24,20 +24,6 @@ SIZES=[256,4096,10000,25000,50000,100000]
 REPEATS=5
 
 
-def train(B,G,seed,M,*,steps=80,max_n=None):
-    cpu0=process_time();tick=perf_counter();d=len(B);N=d//2 if max_n is None else max_n
-    Q=np.zeros((d,0));selected=[]
-    rng=np.random.default_rng(seed if M else seed+10000)
-    if M:
-        pool=rng.uniform(-1,1,(M,d));U=pool@B.T;scores=np.sum(U**2,axis=1)
-    setup=perf_counter()-tick
-    for n in range(N):
-        z=pool[np.argmax(scores)] if M else ascend(residual_gram(B,G,Q),rng.uniform(-1,1,d),steps)
-        Q,q=append(B,Q,z)
-        selected.append(z.copy())
-        if M and n<N-1:scores-=(U@q)**2
-    measured=dict(wall_seconds=perf_counter()-tick,cpu_seconds=process_time()-cpu0,setup_seconds=setup)
-    return Q,np.asarray(selected),measured
 
 
 def calibrate(B,G):

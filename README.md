@@ -23,4 +23,5 @@ also match the server's CUDA setup.
 
 `src/contgreedy/` contains shared numerical and FAE components. Exploratory
 examples and older utilities are kept locally in `local_archive/` and excluded
-from Git. Data, run logs, checkpoints, manuscripts and figures are also excluded.
+from Git. Presentation scripts are in `local_archive/slides_tools/`. Data, run
+logs, checkpoints, manuscripts and figures are also excluded.

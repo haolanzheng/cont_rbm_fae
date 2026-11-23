@@ -105,45 +105,11 @@ def study(d, output):
     return result
 
 
-def report(results, output, figure):
-    import matplotlib
-    matplotlib.use('Agg')
-    import matplotlib.pyplot as plt
-    from matplotlib.ticker import MaxNLocator
-    plt.rcParams.update({'font.family':'DejaVu Sans', 'font.size':10, 'axes.labelsize':11,
-                         'pdf.fonttype':42, 'ps.fonttype':42})
-    styles = [('clipping', 'Clipping', '#0072B2', 'o', '-'),
-              ('active_face', 'Active face', '#C74432', 's', '--'),
-              ('adaptive_normal', 'Adaptive normal', '#009E73', '^', '-.')]
-    fig, axes = plt.subplots(2, 2, figsize=(9.5, 6), constrained_layout=True)
-    for ax, d in zip(axes.flat, [4, 16, 64, 256]):
-        result = next(r for r in results if r['d'] == d)
-        for method, label, color, marker, ls in styles:
-            curves = [r['energy_error'] for r in result['curves'] if r['method'] == method]
-            median = np.median(curves, axis=0)
-            ax.semilogy(np.arange(len(median)), median, color=color, ls=ls, marker=marker,
-                        markevery=max(1, len(median)//9), ms=4, lw=1.6, label=label)
-        ax.set(title=f'$d={d}$', xlabel='$N$', ylabel='Maximum test error')
-        ax.xaxis.set_major_locator(MaxNLocator(nbins=6, integer=True))
-        ax.grid(alpha=.22)
-    handles, labels = axes.flat[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc='outside upper center', ncol=3, frameon=False)
-    figure.parent.mkdir(exist_ok=True)
-    fig.savefig(figure)
-    plt.close(fig)
-    rows = []
-    for r in results:
-        errors = r['final_medians']; best = min(errors.values())
-        values = [('$\\mathbf{%.5f}$' if value == best else '$%.5f$') % value
-                  for value in errors.values()]
-        rows.append(f"{r['d']} & {r['final_N']} & " + ' & '.join(values) + r'\\')
-    (output/'table_rows.tex').write_text('\n'.join(rows)+'\n')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT/'runs/piecewise_boundary_updates_20261121')
-    parser.add_argument('--figure', type=Path, default=ROOT/'paper/writeup/figs/piecewise_boundary_updates_error_vs_N.pdf')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     results = [study(d, args.output) for d in [4, 16, 25, 64, 100, 144, 256]]
@@ -152,4 +118,3 @@ if __name__ == '__main__':
                       device='CPU, float64, one BLAS thread',
                       test='saved shared 4096 interior + 4096 vertex parameters'),
         results=results), indent=2))
-    report(results, args.output, args.figure)
