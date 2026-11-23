@@ -18,6 +18,7 @@ __pycache__/
 .ipynb_checkpoints/
 build/
 dist/
+logs/
 *.so
 .coverage
 .coverage.*
