@@ -31,8 +31,6 @@ htmlcov/
 /runs/*
 !/runs/README*
 !/runs/.gitkeep
-/logs/*
-!/logs/.gitkeep
 checkpoints/
 wandb/
 mlruns/
