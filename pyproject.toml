@@ -10,7 +10,8 @@ requires-python = ">=3.10"
 dependencies = ["jax>=0.4.38,<0.11", "numpy>=1.26,<3", "scipy>=1.11,<2", "matplotlib>=3.7,<4", "threadpoolctl>=3,<4"]
 
 [project.optional-dependencies]
-migration = ["torch>=2.4,<3"]
+fae-torch = ["torch>=2.4,<3"]
+fae-jax = ["jax==0.6.2", "flax==0.10.7", "optax==0.2.5"]
 fem = ["scikit-fem>=11,<13"]
 test = ["pytest>=8,<9"]
 

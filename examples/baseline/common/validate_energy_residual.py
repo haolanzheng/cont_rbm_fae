@@ -5,29 +5,31 @@ import json,time
 import numpy as np
 from scipy.special import betaincc
 from .run_energy_residual import setup
-setup()
 from .run_consistent_fem import OUT,model,coordinates,train,dump,TABLE_DIMS,METHODS,GRIDS,SEEDS
 from ..consistent_fem import EnergyROM
 from .box_bounds import maximum
 
 
 def main():
+ global OUT
+ run=setup();OUT=run.OUT
  rows=json.loads((OUT/'results.json').read_text());timings=[];raw=[];audits=[]
  for d in sorted(set(TABLE_DIMS+[6])):
   a=model(d)
-  jobs=[(dom,m,s,k) for dom in ['sphere','ball','cube'] for m in METHODS+(GRIDS if d<8 else []) for s in ([0] if m.startswith('grid') else SEEDS) for k in range(3)]
+  jobs=[(dom,m,s,k) for dom in ['sphere','ball'] for m in METHODS+(GRIDS if d<8 else []) for s in ([0] if m.startswith('grid') else SEEDS) for k in range(3)]
   np.random.default_rng(819+d).shuffle(jobs)
   for dom,m,s,k in jobs:
    C=coordinates(a,dom);rom,r,_,_=train(C,a['K'],dom,m,s,d//2)
    ref=next(x for x in rows if (x['d'],x['domain'],x['method'],x['seed'])==(d,dom,m,s))
    np.testing.assert_array_equal(r['parameters'],ref['parameters'][:d//2])
    raw.append(dict(d=d,domain=dom,method=m,seed=s,repeat=k,wall_ms=r['elapsed_ms'][-1],rank=r['rank']))
-  for dom in ['sphere','ball','cube']:
+  for dom in ['sphere','ball']:
    for m in METHODS+(GRIDS if d<8 else []):
     rr=[r for r in raw if (r['d'],r['domain'],r['method'])==(d,dom,m)]
     vals=[np.median([r['wall_ms'] for r in rr if r['seed']==s]) for s in sorted({r['seed'] for r in rr})]
     timings.append(dict(d=d,domain=dom,method=m,wall_ms=float(np.median(vals)),rank_min=min(r['rank'] for r in rr),rank_max=max(r['rank'] for r in rr)))
   dump('timings.json',timings);dump('raw_timings.json',raw);print('TIMINGS',d,flush=True)
+ rows=[r for r in rows if r['domain'] in ('sphere','ball')]
  # Directly check that saved selected snapshots have vanishing residual.
  for r in rows:
   if r['d']!=128:continue
@@ -54,7 +56,7 @@ def main():
    theory.append(dict(domain=dom,d=d,sigma=float(sigma),lambda2_ratio=float(ratio),alpha=alpha.tolist(),step_lower=betaincc(.5,b,.9**2*growth(alpha)**(-80)).tolist(),T=T.tolist(),time_lower=betaincc(.5,b,.9**2*growth(.6)**(-2*T)).tolist(),lower=float(betaincc(.5,b,.9**2*growth(.6)**(-80))),pool_upper={str(M):float(-np.expm1(M*np.log1p(-p))) if p<1 else 1. for M in [256,4096,10000]}))
  dump('probability_theory.json',theory)
  empirical=[]
- for dom in ['sphere','ball','cube']:
+ for dom in ['sphere','ball']:
   for d in [8,16,32,48,64]:
    for m in METHODS:
     for r in [r for r in rows if (r['domain'],r['d'],r['method'])==(dom,d,m)]:

@@ -23,12 +23,20 @@ def setup():
         target=OUT/f'model_d{d}.npz'
         if not target.exists():
             source=OLD/target.name
-            with np.load(source) as data: a=dict(data)
+            if source.exists():
+                with np.load(source) as data: a=dict(data)
+            else:
+                from ..consistent_fem import build_model
+                from scipy.linalg import qr
+                a=build_model(d)
+                O,R=qr(np.random.default_rng(20261015+d).normal(size=(d,d)))
+                O*=np.sign(np.diag(R))[None,:]
+                a['rotation']=O
             assert float(a['relative_discrete_equation_defect'])<1e-10
             a['K']=np.eye(d);a['H0']=a['C'].T@a['C']
             a['residual_metric']=np.array('diffusion_energy_dual')
             np.savez_compressed(target,**a)
-        for domain in ('sphere','ball','cube'):
+        for domain in ('sphere','ball'):
             name=f'test_{domain}_d{d}.npz'
             if (OLD/name).exists() and not (OUT/name).exists():shutil.copy2(OLD/name,OUT/name)
     audit={'residual_metric':'A^{-1}', 'coordinate_metric':'identity',

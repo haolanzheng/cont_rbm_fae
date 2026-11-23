@@ -26,6 +26,7 @@ def main():
     parser.add_argument('--validate-only',action='store_true')
     args=parser.parse_args();out=args.output;out.mkdir(parents=True,exist_ok=False)
     old=json.loads((BASE/'results.json').read_text());checks=[];raw=[];times=[]
+    old=[r for r in old if r['domain'] in ('sphere','ball')]
     models={}
     with threadpool_limits(limits=1):
         for d in sorted({r['d'] for r in old}):
@@ -52,7 +53,7 @@ def main():
             if r['rank']!=N or projector_error>1e-9:raise RuntimeError(rec)
         dump(out/'validation.json',checks)
         print('VALIDATED',len(checks),'histories; changed',sum(r['max_parameter_difference']>1e-12 for r in checks),flush=True)
-        dump(out/'metadata.json',dict(platform=platform.platform(),numpy=np.__version__,threads=threadpool_info(),seeds=list(SEEDS),repeats=args.repeats,alpha=.6,T_sphere_ball=40,T_cube=80,
+        dump(out/'metadata.json',dict(platform=platform.platform(),numpy=np.__version__,threads=threadpool_info(),seeds=list(SEEDS),repeats=args.repeats,alpha=.6,T_sphere_ball=40,
             source_results=str(BASE),included='Sampling/grid generation; pool energy-coordinate precomputation; rank-one score updates and stable refreshes; GD search-matrix construction; searches; basis enrichment.',
             excluded='Shared HF construction; error evaluation; probability diagnostics; verification; file I/O.',
             summary='Median of per-seed medians; randomized interleaved sequential runs after validation warmups.',
@@ -60,7 +61,7 @@ def main():
         if args.validate_only:return
         for d in sorted(set(TABLE_DIMS+[6])):
             a=models[d]
-            jobs=[(dom,m,s,k) for dom in ['sphere','ball','cube'] for m in METHODS+(GRIDS if d<8 else []) for s in ([0] if m.startswith('grid') else SEEDS) for k in range(args.repeats)]
+            jobs=[(dom,m,s,k) for dom in ['sphere','ball'] for m in METHODS+(GRIDS if d<8 else []) for s in ([0] if m.startswith('grid') else SEEDS) for k in range(args.repeats)]
             np.random.default_rng(934000+d).shuffle(jobs)
             for dom,m,s,k in jobs:
                 C=coordinates(a,dom)
@@ -68,7 +69,7 @@ def main():
                 tick=time.perf_counter();rom,r,_,_=train(C,a['K'],dom,m,s,d//2,diagnostics=False)
                 wall=1000*(time.perf_counter()-tick)
                 raw.append(dict(domain=dom,d=d,method=m,seed=s,repeat=k,wall_ms=wall,rank=r['rank']))
-            for dom in ['sphere','ball','cube']:
+            for dom in ['sphere','ball']:
                 for m in METHODS+(GRIDS if d<8 else []):
                     rr=[r for r in raw if (r['d'],r['domain'],r['method'])==(d,dom,m)]
                     vals=[np.median([r['wall_ms'] for r in rr if r['seed']==s]) for s in sorted({r['seed'] for r in rr})]

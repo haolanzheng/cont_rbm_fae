@@ -5,7 +5,7 @@ Bounds are mathematical bounds evaluated in float64, not interval certificates.
 """
 import numpy as np
 from scipy.linalg import cho_factor, cho_solve
-from ..cube.search import scores
+from .box.search import scores
 
 def vertex_bounds(H,exact_dimension=16):
     """Max of PSD quadratic is attained at a vertex. Return lower/upper bounds."""

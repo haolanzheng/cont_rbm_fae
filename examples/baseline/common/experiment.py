@@ -1,4 +1,4 @@
-"""Reproducible consistent-FEM baseline, single-thread CPU, all domains.
+"""Reproducible consistent-FEM baseline, single-thread CPU, sphere and ball.
 
 Training does not use evaluation maxima or test points. Results include all
 selected parameters, reduced bases, fixed test sets and configuration hashes.
@@ -11,10 +11,10 @@ from pathlib import Path
 import numpy as np
 from threadpoolctl import threadpool_limits, threadpool_info
 from ..geometry_cpu import CoordinateROM, rom_options, uniform_parameters, search
-from ..cube.search import search as cube_search, scores
+from .box.search import search as cube_search, scores
 from .box_bounds import maximum, width
 from .cached_pool import CachedEnergyPool
-from ..cube.test_set import make_vertex_test_set
+from .box.test_set import make_vertex_test_set
 ROOT=Path(__file__).resolve().parents[3]
 
 
@@ -25,6 +25,8 @@ def sample(rng,count,d,domain):
 
 
 def main(domain):
+    if domain not in ("sphere", "ball"):
+        raise ValueError("The retained spectral examples are sphere and ball.")
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config',type=Path,default=Path(__file__).resolve().parents[1]/domain/'config.json')
     parser.add_argument('--output',type=Path,required=True)

@@ -1,4 +1,4 @@
-"""Reproduce the current meeting experiments using consistent FEM snapshots.
+"""Reproduce the sphere and ball experiments using consistent FEM snapshots.
 
 Run: PYTHONPATH=. .venv_cpu/bin/python -u -m examples.baseline.common.run_consistent_fem
 Only new run files are written. Reporting is a separate command.
@@ -13,10 +13,10 @@ from threadpoolctl import threadpool_info
 from ..consistent_fem import build_model,EnergyROM
 from .cached_pool import CachedEnergyPool
 from ..geometry_cpu import search,uniform_parameters,pool_search
-from ..cube.search import search as cube_search
-from ..cube.boundary_strategies import search as boundary_search
-from ..cube.test_set import make_vertex_test_set
-from ..run_extended_comparison_cpu import tensor_candidates
+from .box.search import search as cube_search
+from .box.boundary_strategies import search as boundary_search
+from .box.test_set import make_vertex_test_set
+from .mesh import tensor_candidates
 ROOT=Path(__file__).resolve().parents[3];OUT=ROOT/'runs/consistent_fem_20261113'
 DIMS=[4,6]+list(range(8,65,4))+[128];SEEDS=range(1000,1008)
 TABLE_DIMS=[4,8,16,32,64,128];CURVE_DIMS=[6,16,32,64];BOUNDARY_DIMS=[6,8,16,32,48,64]
@@ -42,7 +42,7 @@ def tests(d,dom):
     p=OUT/f'test_{dom}_d{d}.npz'
     if p.exists():return np.load(p)['parameters']
     if dom=='cube':Z=make_vertex_test_set(d)[0]
-    elif d==6:
+    elif d==6 and (ROOT/f'runs/analytic_hf_a06_t40_20261022/fixed_final_spaces_{dom}_d6.npz').exists():
         Z=np.load(ROOT/f'runs/analytic_hf_a06_t40_20261022/fixed_final_spaces_{dom}_d6.npz')['test_parameters']
     else:
         Z=uniform_parameters(np.random.default_rng(202610180+100*d+(dom=='ball')),16384,d,dom)
@@ -83,15 +83,16 @@ def error(C,Q,Z):
 
 def main():
     OUT.mkdir(exist_ok=True)
-    dump('config.json',dict(dimensions=DIMS,seeds=list(SEEDS),alpha=.6,T_sphere_ball=40,T_cube=80,rho=.78,
+    dump('config.json',dict(dimensions=DIMS,seeds=list(SEEDS),alpha=.6,T_sphere_ball=40,rho=.78,
          hf='AS=B solved with the original assembled loads; energy-coordinate Galerkin projection',
          n_grid=40,element_order=3,blas=threadpool_info(),timing='training only, excludes shared HF setup and diagnostics',
          boundary_dimensions=BOUNDARY_DIMS))
     rows=json.loads((OUT/'results.json').read_text()) if (OUT/'results.json').exists() else []
+    rows=[r for r in rows if r['domain'] in ('sphere','ball')]
     keys={(r['d'],r['domain'],r['method'],r['seed']) for r in rows}
     for d in DIMS:
         a=model(d)
-        for dom in ['sphere','ball','cube']:
+        for dom in ['sphere','ball']:
             C=coordinates(a,dom);Z=tests(d,dom)
             methods=METHODS+(GRIDS if d<8 else [])+(['active_face','normal_scaled'] if dom=='cube' and d in BOUNDARY_DIMS else [])
             for method in methods:

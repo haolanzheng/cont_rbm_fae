@@ -1,3 +1,6 @@
+# Local-only exploratory examples and previous documentation
+/local_archive/
+
 # Python environments, caches and build products
 .venv*/
 venv/

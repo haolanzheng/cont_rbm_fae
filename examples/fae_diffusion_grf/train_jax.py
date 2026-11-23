@@ -34,7 +34,7 @@ def weights(n):
 
 
 class OrthogonalIntegral(nn.Module):
-    """Same pooling as examples.hyperelasticity.fae.OrthogonalIntegral."""
+    """Integral pooling with a regularized kernel Gram matrix."""
     latent_dim: int
     hidden: int=64
     epsilon: float=1e-3
