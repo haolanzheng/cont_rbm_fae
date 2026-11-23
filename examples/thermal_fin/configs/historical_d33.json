@@ -1,0 +1,31 @@
+{
+  "scope": "historical alpha-free full-box suite, not TeX rank-40 continuation",
+  "source": "examples/thermal_fin/CONTINUOUS_GREEDY_REPORT.md",
+  "dimension": 33,
+  "cells": 32,
+  "rank": 100,
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "methods": [
+    "pool2000",
+    "pool4000",
+    "resamp2000",
+    "local",
+    "lbfgs5",
+    "lbfgs10",
+    "lbfgs20",
+    "lbfgs100",
+    "adam100"
+  ],
+  "audit": "historical_boundary_enriched",
+  "adam_policy": {
+    "learning_rate": 0.05,
+    "beta1": 0.9,
+    "beta2": 0.99,
+    "epsilon": 1e-8,
+    "return_best": true
+  }
+}

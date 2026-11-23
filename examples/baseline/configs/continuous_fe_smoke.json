@@ -1,0 +1,18 @@
+{
+  "scope": "continuous-source P3 FEM integration smoke; not paper evidence",
+  "problem": {
+    "hf_solver": "continuous_fe",
+    "grid": 8,
+    "element_order": 3,
+    "dimension": 4,
+    "contrast": 0.25,
+    "spectrum_ratio": 0.78
+  },
+  "rank": 2,
+  "seeds": [1000],
+  "methods": [
+    {"name": "exact_indicator"},
+    {"name": "normalized_gd", "steps": 10, "learning_rate": 1.0},
+    {"name": "pool", "pool_size": 16}
+  ]
+}

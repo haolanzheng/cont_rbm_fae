@@ -1,0 +1,3 @@
+# Portable CPU JAX and case FEM dependencies. Install GPU wheels separately.
+# PyTorch is optional: pip install -e '.[fae]'
+-e .[fem]

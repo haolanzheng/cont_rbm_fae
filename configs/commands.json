@@ -1,0 +1,222 @@
+{
+  "adam_lr_sweep": {
+    "module": "examples.baseline.adam_lr_sweep",
+    "working_directory": "examples/baseline"
+  },
+  "audit_pb_test_resolution": {
+    "module": "examples.nonlinear_elliptic.audit_pb_test_resolution",
+    "working_directory": "examples/nonlinear_elliptic"
+  },
+  "bgk_decisive": {
+    "module": "examples.bgk.bgk_decisive",
+    "working_directory": "examples/bgk"
+  },
+  "bgk_frozen_controls": {
+    "module": "examples.bgk.bgk_frozen_controls",
+    "working_directory": "examples/bgk"
+  },
+  "bgk_precision_replay": {
+    "module": "examples.bgk.bgk_precision_replay",
+    "working_directory": "examples/bgk"
+  },
+  "bgk_temporal": {
+    "module": "examples.bgk.bgk_temporal",
+    "working_directory": "examples/bgk"
+  },
+  "bgk_temporal_branch": {
+    "module": "examples.bgk.bgk_temporal_branch",
+    "working_directory": "examples/bgk"
+  },
+  "boltzmann_bgk_screen": {
+    "module": "examples.bgk.boltzmann_bgk_screen",
+    "working_directory": "examples/bgk"
+  },
+  "candidate_optimizer_audit": {
+    "module": "examples.flow_elasticity.candidate_optimizer_audit",
+    "working_directory": "examples/flow_elasticity"
+  },
+  "candidate_validation": {
+    "module": "examples.flow_elasticity.candidate_validation",
+    "working_directory": "examples/flow_elasticity"
+  },
+  "check_adam_regional_theory": {
+    "module": "examples.theory.check_adam_regional_theory",
+    "working_directory": "examples/theory"
+  },
+  "confirm_magnet_robustness": {
+    "module": "examples.nonlinear_elliptic.confirm_magnet_robustness",
+    "working_directory": "examples/nonlinear_elliptic"
+  },
+  "confirm_pb_learning_rates": {
+    "module": "examples.nonlinear_elliptic.confirm_pb_learning_rates",
+    "working_directory": "examples/nonlinear_elliptic"
+  },
+  "confirm_pb_robustness": {
+    "module": "examples.nonlinear_elliptic.confirm_pb_robustness",
+    "working_directory": "examples/nonlinear_elliptic"
+  },
+  "cont_greedy_bench": {
+    "module": "examples.screening.cont_greedy_bench",
+    "working_directory": "examples/screening"
+  },
+  "elastic_rod_complete_test": {
+    "module": "examples.elasticity.elastic_rod_complete_test",
+    "working_directory": "examples/elasticity"
+  },
+  "elastic_rod_deployment_update": {
+    "module": "examples.elasticity.elastic_rod_deployment_update",
+    "working_directory": "examples/elasticity"
+  },
+  "elastic_rod_rlbfgs_complete": {
+    "module": "examples.elasticity.elastic_rod_rlbfgs_complete",
+    "working_directory": "examples/elasticity"
+  },
+  "elastic_rod_step_sweep": {
+    "module": "examples.elasticity.elastic_rod_step_sweep",
+    "working_directory": "examples/elasticity"
+  },
+  "experiment": {
+    "module": "examples.baseline.experiment",
+    "working_directory": "examples/baseline"
+  },
+  "fin_aggregate": {
+    "module": "examples.thermal_fin.fin_aggregate",
+    "working_directory": "examples/thermal_fin"
+  },
+  "fin_batch": {
+    "module": "examples.thermal_fin.fin_batch",
+    "working_directory": "examples/thermal_fin"
+  },
+  "fin_final_error_audit": {
+    "module": "examples.thermal_fin.fin_final_error_audit",
+    "working_directory": "examples/thermal_fin"
+  },
+  "fin_local_study": {
+    "module": "examples.thermal_fin.fin_local_study",
+    "working_directory": "examples/thermal_fin"
+  },
+  "fin_local_witness_audit": {
+    "module": "examples.thermal_fin.fin_local_witness_audit",
+    "working_directory": "examples/thermal_fin"
+  },
+  "flow_reversal_continuous_greedy": {
+    "module": "examples.screening.flow_reversal_continuous_greedy",
+    "working_directory": "examples/screening"
+  },
+  "haldane_continuous_greedy": {
+    "module": "examples.screening.haldane_continuous_greedy",
+    "working_directory": "examples/screening"
+  },
+  "highdim_candidate_suite": {
+    "module": "examples.screening.highdim_candidate_suite",
+    "working_directory": "examples/screening"
+  },
+  "indicator_driven_natural_bench": {
+    "module": "examples.flow.indicator_driven_natural_bench",
+    "working_directory": "examples/flow"
+  },
+  "local_separation_theory": {
+    "module": "examples.thermal_fin.local_separation_theory",
+    "working_directory": "examples/thermal_fin"
+  },
+  "make_candidate_report": {
+    "module": "examples.flow_elasticity.make_candidate_report",
+    "working_directory": "examples/flow_elasticity"
+  },
+  "make_final_report": {
+    "module": "examples.nonsmooth.make_final_report",
+    "working_directory": "examples/nonsmooth"
+  },
+  "make_summary": {
+    "module": "examples.baseline.make_summary",
+    "working_directory": "examples/baseline"
+  },
+  "natural_continuous_greedy_bench": {
+    "module": "examples.flow.natural_continuous_greedy_bench",
+    "working_directory": "examples/flow"
+  },
+  "nls_oracle_greedy": {
+    "module": "examples.screening.nls_oracle_greedy",
+    "working_directory": "examples/screening"
+  },
+  "nonlinear_pb_magnet_continuous_greedy": {
+    "module": "examples.nonlinear_elliptic.nonlinear_pb_magnet_continuous_greedy",
+    "working_directory": "examples/nonlinear_elliptic"
+  },
+  "nonsmooth_continuous_greedy": {
+    "module": "examples.nonsmooth.nonsmooth_continuous_greedy",
+    "working_directory": "examples/nonsmooth"
+  },
+  "peng_rte_continuous_greedy": {
+    "module": "examples.screening.peng_rte_continuous_greedy",
+    "working_directory": "examples/screening"
+  },
+  "peng_rte_e3_full_experiment": {
+    "module": "examples.screening.peng_rte_e3_full_experiment",
+    "working_directory": "examples/screening"
+  },
+  "random_rod_greedy": {
+    "module": "examples.elasticity.random_rod_greedy",
+    "working_directory": "examples/elasticity"
+  },
+  "reaction_diffusion_bench": {
+    "module": "examples.screening.reaction_diffusion_bench",
+    "working_directory": "examples/screening"
+  },
+  "refine_temporal_endpoint": {
+    "module": "examples.bgk.refine_temporal_endpoint",
+    "working_directory": "examples/bgk"
+  },
+  "replicate_full_greedy": {
+    "module": "examples.nonsmooth.replicate_full_greedy",
+    "working_directory": "examples/nonsmooth"
+  },
+  "report_temporal": {
+    "module": "examples.bgk.report_temporal",
+    "working_directory": "examples/bgk"
+  },
+  "retuned_evaluation": {
+    "module": "examples.nonsmooth.retuned_evaluation",
+    "working_directory": "examples/nonsmooth"
+  },
+  "rigorous_candidate_bench": {
+    "module": "examples.flow_elasticity.rigorous_candidate_bench",
+    "working_directory": "examples/flow_elasticity"
+  },
+  "spectral_poisson_bench": {
+    "module": "examples.screening.spectral_poisson_bench",
+    "working_directory": "examples/screening"
+  },
+  "step_flow_candidate_bench": {
+    "module": "examples.flow_elasticity.step_flow_candidate_bench",
+    "working_directory": "examples/flow_elasticity"
+  },
+  "summarize_decisive": {
+    "module": "examples.bgk.summarize_decisive",
+    "working_directory": "examples/bgk"
+  },
+  "summarize_temporal": {
+    "module": "examples.bgk.summarize_temporal",
+    "working_directory": "examples/bgk"
+  },
+  "thermal_block_bench": {
+    "module": "examples.screening.thermal_block_bench",
+    "working_directory": "examples/screening"
+  },
+  "validate_decisive": {
+    "module": "examples.bgk.validate_decisive",
+    "working_directory": "examples/bgk"
+  },
+  "validate_temporal": {
+    "module": "examples.bgk.validate_temporal",
+    "working_directory": "examples/bgk"
+  },
+  "spectral": {
+    "module": "examples.baseline.cli",
+    "working_directory": "."
+  },
+  "thermal-fin": {
+    "module": "examples.thermal_fin.cli",
+    "working_directory": "."
+  }
+}

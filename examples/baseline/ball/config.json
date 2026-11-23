@@ -1,0 +1,43 @@
+{
+  "dimensions": [
+    4,
+    6,
+    8,
+    16,
+    32,
+    48,
+    64
+  ],
+  "seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007
+  ],
+  "updates": 40,
+  "alpha": 0.6,
+  "rho": 0.78,
+  "contrast": 0.25,
+  "pool_sizes": [
+    256,
+    4096,
+    10000
+  ],
+  "test_count": 16384,
+  "test_seed": 202610270,
+  "grid_dimensions": [
+    4,
+    6
+  ],
+  "grid_spacings": [
+    1,
+    0.5,
+    0.25
+  ],
+  "gamma": 0.9,
+  "residual_norm": "energy_dual"
+}

@@ -1,0 +1,33 @@
+{
+  "data_directory": "data_80_formal1024",
+  "backend": "jax",
+  "model": {
+    "latent_dimension": 128,
+    "width": 32,
+    "modes": 8,
+    "pool_channels": 8,
+    "kernel_hidden": 64,
+    "decoder_width": 96,
+    "decoder_blocks": 3,
+    "condition_width": 96,
+    "coordinate_frequencies": 6
+  },
+  "training": {
+    "train_size": 1024,
+    "batch_size": 32,
+    "epochs": 200,
+    "warmup_epochs": 0,
+    "learning_rate": 0.001,
+    "minimum_learning_rate": 0.00001,
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "epsilon": 1e-8,
+    "weight_decay": 0,
+    "latent_penalty": 0.0001,
+    "gradient_clip": 1,
+    "seed": 310519,
+    "threads": 4,
+    "max_real_parameters": 2000000,
+    "evaluation_interval_epochs": 10
+  }
+}

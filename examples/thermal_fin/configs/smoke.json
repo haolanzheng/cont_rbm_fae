@@ -1,0 +1,16 @@
+{
+  "scope": "small smoke, not paper evidence",
+  "dimension": 3,
+  "cells": 4,
+  "rank": 4,
+  "seeds": [
+    11
+  ],
+  "methods": [
+    "adam100",
+    "pool16"
+  ],
+  "audit": "smoke_random",
+  "audit_seed": 9901,
+  "audit_count": 16
+}
